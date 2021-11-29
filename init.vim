@@ -51,8 +51,7 @@ Plug 'jiangmiao/auto-pairs'
 
 Plug 'norcalli/nvim-colorizer.lua'
 
-Plug 'scrooloose/nerdcommenter'		" NERD commenter. Quickly comment lines
-Plug 'tpope/vim-commentary'
+Plug 'terrortylor/nvim-comment'
 Plug 'othree/xml.vim'
 Plug 'othree/html5.vim'
 
@@ -184,7 +183,6 @@ nnoremap <C-v> "+gp
 inoremap <C-v> <ESC>"+gp
 
 
-
 " Enable per-command history.
 " CTRL-N and CTRL-P will be automatically bound to next-history and
 " previous-history instead of down and up. If you don't like the change,
@@ -215,6 +213,13 @@ inoremap <silent><expr> <c-space> coc#refresh()
 
 
 lua require'colorizer'.setup()
+
+lua << EOF
+require('nvim_comment').setup({
+  line_mapping = "<C-_>",
+  operator_mapping = "<C-_>"
+})
+EOF
 
 lua << EOF
 require("formatter").setup(
