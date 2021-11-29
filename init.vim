@@ -41,7 +41,7 @@ Plug 'tomtom/tlib_vim'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'vim-test/vim-test'
-Plug 'voldikss/vim-floaterm'
+Plug 'akinsho/toggleterm.nvim'
 
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}} " Completion as in vscode
 Plug 'nvim-lua/plenary.nvim'
@@ -141,7 +141,7 @@ let g:vscode_style = "dark"
 "colorscheme xcodedark
 "colorscheme nightfly
 "colorscheme kikwis
-" colorscheme tokyonight
+"colorscheme tokyonight
 colorscheme vscode
 "colorscheme noctu
 "colorscheme zenbones
@@ -183,6 +183,7 @@ nnoremap <C-v> "+gp
 inoremap <C-v> <ESC>"+gp
 
 
+
 " Enable per-command history.
 " CTRL-N and CTRL-P will be automatically bound to next-history and
 " previous-history instead of down and up. If you don't like the change,
@@ -214,10 +215,38 @@ inoremap <silent><expr> <c-space> coc#refresh()
 
 lua require'colorizer'.setup()
 
+
+lua << EOF
+require("toggleterm").setup({
+  open_mapping = [[<A-Backspace>]],
+  hide_numbers = true, -- hide the number column in toggleterm buffers
+  shade_filetypes = {},
+  shade_terminals = true,
+  shading_factor = 1, -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
+  start_in_insert = true,
+  insert_mappings = true, -- whether or not the open mapping applies in insert mode
+  persist_size = true,
+  direction = 'float',
+  close_on_exit = true, -- close the terminal window when the process exits
+  shell = vim.o.shell, -- change the default shell
+  -- This field is only relevant if direction is set to 'float'
+  float_opts = {
+    -- The border key is *almost* the same as 'nvim_open_win'
+    -- see :h nvim_open_win for details on borders however
+    -- the 'curved' border is a custom border type
+    -- not natively supported but implemented in this plugin.
+    border = 'single',
+    winblend = 3,
+    highlights = {
+      border = "Normal",
+      background = "Normal",
+    }
+  }
+})
+EOF
+
 lua << EOF
 require('nvim_comment').setup({
-  line_mapping = "<C-_>",
-  operator_mapping = "<C-_>"
 })
 EOF
 
@@ -311,13 +340,6 @@ let g:snipMate = { 'snippet_version' : 1 }
 let test#strategy = "neovim"
 let test#neovim#term_position = "topleft"
 let test#neovim#term_position = "vert"
-" let test#neovim#term_position = "vert botright 30"
-let g:floaterm_open_command = 'vsplit'
-let g:floaterm_keymap_kill = '<A-g>'
-"nnoremap   <silent>   <A-Backspace>    :FloatermNew --height=0.4 --width=0.98 --wintype=floating --position=bottom --autoclose=2<CR>
-"tnoremap   <silent>   <A-Backspace>    <C-\><C-n>:FloatermNew --height=0.4 --width=0.98 --wintype=floating --position=bottom --autoclose=2<CR>
-nnoremap   <silent>   <A-Backspace>   :FloatermToggle<CR>
-tnoremap   <silent>   <A-Backspace>   <C-\><C-n>:FloatermToggle<CR>
 
 nmap  <leader>tn :TestNearest<CR>
 nmap  <leader>tf :TestFile<CR>
@@ -328,6 +350,9 @@ nmap <leader>rm :Emodel<Space>
 nmap <leader>rc :Econtroller<Space>
 nmap <leader>rs :Eschema<CR>
 nmap <leader>rv :Eview<Space>
+
+nmap <C-_> :CommentToggle<CR>
+vmap <C-_> :CommentToggle<CR>
 
 nnoremap <Tab>   za
 nnoremap ma  ^
