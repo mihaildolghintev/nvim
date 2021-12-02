@@ -65,18 +65,18 @@ Plug 'airblade/vim-gitgutter'
 
 Plug 'rakr/vim-one'
 "Plug 'tomasr/molokai'
-"Plug 'drewtempelmeyer/palenight.vim'
+Plug 'drewtempelmeyer/palenight.vim'
 "Plug 'morhetz/gruvbox'
 "Plug 'relastle/bluewery.vim'
 "Plug 'Rigellute/shades-of-purple.vim'
 "Plug 'patstockwell/vim-monokai-tasty'
-Plug 'sainnhe/gruvbox-material'
+" Plug 'sainnhe/gruvbox-material'
 Plug 'projekt0n/github-nvim-theme'
-Plug 'arzg/vim-colors-xcode'
-Plug 'bluz71/vim-nightfly-guicolors'
-Plug 'noahfrederick/vim-noctu'
-Plug 'lucastrvsn/kikwis'
-Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+" Plug 'arzg/vim-colors-xcode'
+" Plug 'bluz71/vim-nightfly-guicolors'
+" Plug 'noahfrederick/vim-noctu'
+" Plug 'lucastrvsn/kikwis'
+" Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 Plug 'Mofiqul/vscode.nvim'
 " Plug 'https://gitlab.com/yorickpeterse/vim-paper.git'
 "Plug 'cormacrelf/vim-colors-github'
@@ -132,16 +132,16 @@ let g:vscode_style = "dark"
 "colorscheme gruvbox
 "colorscheme molokai
 "colorscheme one
-"colorscheme palenight
+" colorscheme palenight
 "colorscheme dracula
 "colorscheme gruvbox-material
 " colorscheme paper
-"colorscheme github_light
+" colorscheme github_dark
 "colorscheme xcodelight
 "colorscheme xcodedark
 "colorscheme nightfly
 "colorscheme kikwis
-"colorscheme tokyonight
+" colorscheme tokyonight
 colorscheme vscode
 "colorscheme noctu
 "colorscheme zenbones
