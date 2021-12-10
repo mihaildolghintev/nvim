@@ -19,6 +19,7 @@ Plug 'mattn/emmet-vim'
 Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }
 
 Plug 'vimwiki/vimwiki'
+Plug 'farmergreg/vim-lastplace'
 
 "Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
@@ -31,6 +32,7 @@ Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-ragtag'
+Plug 'dewyze/vim-ruby-block-helpers'
 "Plug 'ngmy/vim-rubocop'
 Plug 'thoughtbot/vim-rspec'
 Plug 'pechorin/any-jump.vim'
@@ -58,26 +60,36 @@ Plug 'othree/html5.vim'
 Plug 'alvan/vim-closetag'
 Plug 'ap/vim-css-color'
 
-Plug 'yggdroot/indentline'
+"Plug 'yggdroot/indentline'
+Plug 'lukas-reineke/indent-blankline.nvim'
 
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
-Plug 'rakr/vim-one'
+"Plug 'rktjmp/lush.nvim'
+"Plug 'metalelf0/jellybeans-nvim'
+"Plug 'nanotech/jellybeans.vim'
+"Plug 'rakr/vim-one'
 "Plug 'tomasr/molokai'
-Plug 'drewtempelmeyer/palenight.vim'
+"Plug 'drewtempelmeyer/palenight.vim'
 "Plug 'morhetz/gruvbox'
+Plug 'rktjmp/lush.nvim'
+Plug 'ellisonleao/gruvbox.nvim'
+Plug 'eddyekofo94/gruvbox-flat.nvim'
 "Plug 'relastle/bluewery.vim'
+"Plug 'tanvirtin/monokai.nvim'
 "Plug 'Rigellute/shades-of-purple.vim'
 "Plug 'patstockwell/vim-monokai-tasty'
 " Plug 'sainnhe/gruvbox-material'
 Plug 'projekt0n/github-nvim-theme'
 " Plug 'arzg/vim-colors-xcode'
-" Plug 'bluz71/vim-nightfly-guicolors'
+ Plug 'bluz71/vim-nightfly-guicolors'
 " Plug 'noahfrederick/vim-noctu'
 " Plug 'lucastrvsn/kikwis'
-" Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
-Plug 'Mofiqul/vscode.nvim'
+Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+"Plug 'Mofiqul/vscode.nvim'
+"Plug 'shaunsingh/nord.nvim'
+"Plug 'katawful/kat.nvim'
 " Plug 'https://gitlab.com/yorickpeterse/vim-paper.git'
 "Plug 'cormacrelf/vim-colors-github'
 "Plug 'dracula/vim', {'as': 'dracula'}
@@ -92,6 +104,7 @@ syntax on
 set encoding=utf8
 
 set list
+set synmaxcol=200
 set clipboard=unnamedplus
 let mapleader = " "
 set foldmethod=indent
@@ -112,7 +125,6 @@ set expandtab
 
 
 "set relativenumber
-set lazyredraw
 set splitright
 "highlight LineNr ctermfg=gray
 "highlight Pmenu ctermbg=gray guibg=gray " popup autocomplete menu color
@@ -127,24 +139,35 @@ let g:vscode_style = "dark"
 
 "let g:molokai_original = 1
 
+
+let g:nord_borders = v:true
+let g:nord_contrast = v:true
+
+
 "colorscheme bluewery
 "colorscheme shades_of_purple
 "colorscheme gruvbox
+"colorscheme gruvbox-flat
 "colorscheme molokai
 "colorscheme one
-" colorscheme palenight
+"colorscheme palenight
 "colorscheme dracula
 "colorscheme gruvbox-material
 " colorscheme paper
 " colorscheme github_dark
+ "colorscheme github_light
 "colorscheme xcodelight
 "colorscheme xcodedark
-"colorscheme nightfly
+colorscheme nightfly
 "colorscheme kikwis
-" colorscheme tokyonight
-colorscheme vscode
+"colorscheme tokyonight
+"colorscheme monokai
+" colorscheme vscode
+"colorscheme nord
+"colorscheme kat.lightenwim
 "colorscheme noctu
 "colorscheme zenbones
+"colorscheme jellybeans
 
 
 " nnoremap <A-f> :Ag<CR>
@@ -158,7 +181,9 @@ let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-prettier', 'coc-html'
 nnoremap <Leader>m :Buffers<CR>
 nnoremap <C-p> <cmd>lua require('telescope.builtin').find_files({previewer = false})<cr>
 nnoremap <C-o> <cmd>Telescope live_grep<cr>
+nnoremap <leader>m <cmd>Telescope marks<cr>
 nnoremap <C-e> <cmd>Telescope buffers<cr>
+nnoremap <A-i> <cmd>Telescope jumplist<cr>
 nnoremap <leader>b <cmd>Telescope file_browser<cr>
 nnoremap ? <cmd>Telescope current_buffer_fuzzy_find<cr>
 nnoremap <leader>e <cmd>Telescope coc diagnostics<cr>
@@ -215,6 +240,15 @@ inoremap <silent><expr> <c-space> coc#refresh()
 
 lua require'colorizer'.setup()
 
+lua << EOF
+vim.opt.list = true
+vim.opt.listchars:append("space:⋅")
+
+require("indent_blankline").setup {
+    show_end_of_line = true,
+    space_char_blankline = " ",
+}
+EOF
 
 lua << EOF
 require("toggleterm").setup({
@@ -247,6 +281,7 @@ EOF
 
 lua << EOF
 require('nvim_comment').setup({
+  marker_padding = false,
 })
 EOF
 
@@ -311,11 +346,27 @@ require('telescope').load_extension('coc')
 EOF
 
 lua << EOF
-require('lualine').setup {
+local lualine = require 'lualine'
+lualine.setup {
   options = {
-    theme = 'vscode',
-  }
+    theme = 'nightfly',
+  },
 }
+
+-- https://github.com/nvim-lualine/lualine.nvim/wiki/FAQ#my-tabline-updates-infrequently
+if _G.Tabline_timer == nil then
+  _G.Tabline_timer = vim.loop.new_timer()
+else
+  _G.Tabline_timer:stop()
+end
+
+_G.Tabline_timer:start(
+  0,             -- never timeout
+  5000,          -- repeat every 5000 ms
+  vim.schedule_wrap(function() -- updater function
+     vim.api.nvim_command('redrawtabline')
+  end)
+)
 EOF
 
 
@@ -333,6 +384,9 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
+
+
+
 
 
 let g:snipMate = { 'snippet_version' : 1 }
@@ -355,14 +409,17 @@ nmap <C-_> :CommentToggle<CR>
 vmap <C-_> :CommentToggle<CR>
 
 nnoremap <Tab>   za
-nnoremap ma  ^
-vnoremap ma  ^
-nnoremap me  g_
-vnoremap me  g_
 
 nnoremap <silent> <C-\> :vsplit<CR>
 
 nnoremap <silent> ff :Format<CR>
+
+command! -nargs=0 BlameOff :call coc#config('git.addGBlameToVirtualText', v:false)
+command! -nargs=0 BlameOn :call coc#config('git.addGBlameToVirtualText', v:true)
+
+nnoremap <silent> bo :BlameOff<CR>
+nnoremap <silent> bi :BlameOn<CR>
+
 
 map <C-n> :NERDTreeToggle<CR>
 let g:NERDTreeWinSize=50
@@ -394,3 +451,5 @@ nmap <silent> gr <Plug>(coc-references)
 
 let g:vimrubocop_keymap = 0
 nmap <Leader>r :RuboCop<CR>
+
+
