@@ -14,6 +14,9 @@ Plug 'rbgrouleff/bclose.vim'
 Plug 'francoiscabrol/ranger.vim'
 
 Plug 'mhartington/formatter.nvim'
+Plug 'ahmedkhalf/project.nvim'
+Plug 'nacro90/numb.nvim'
+Plug 'f-person/git-blame.nvim'
 
 Plug 'mattn/emmet-vim'
 Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -73,20 +76,21 @@ Plug 'airblade/vim-gitgutter'
 "Plug 'tomasr/molokai'
 "Plug 'drewtempelmeyer/palenight.vim'
 "Plug 'morhetz/gruvbox'
-Plug 'rktjmp/lush.nvim'
-Plug 'ellisonleao/gruvbox.nvim'
-Plug 'eddyekofo94/gruvbox-flat.nvim'
+"Plug 'rktjmp/lush.nvim'
+"Plug 'ellisonleao/gruvbox.nvim'
+"Plug 'eddyekofo94/gruvbox-flat.nvim'
 "Plug 'relastle/bluewery.vim'
 "Plug 'tanvirtin/monokai.nvim'
 "Plug 'Rigellute/shades-of-purple.vim'
 "Plug 'patstockwell/vim-monokai-tasty'
 " Plug 'sainnhe/gruvbox-material'
-Plug 'projekt0n/github-nvim-theme'
+"Plug 'projekt0n/github-nvim-theme'
+"Plug 'mangeshrex/uwu.vim'
 " Plug 'arzg/vim-colors-xcode'
  Plug 'bluz71/vim-nightfly-guicolors'
 " Plug 'noahfrederick/vim-noctu'
 " Plug 'lucastrvsn/kikwis'
-Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+"Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 "Plug 'Mofiqul/vscode.nvim'
 "Plug 'shaunsingh/nord.nvim'
 "Plug 'katawful/kat.nvim'
@@ -159,6 +163,7 @@ let g:nord_contrast = v:true
 "colorscheme xcodelight
 "colorscheme xcodedark
 colorscheme nightfly
+"colorscheme uwu
 "colorscheme kikwis
 "colorscheme tokyonight
 "colorscheme monokai
@@ -176,7 +181,7 @@ colorscheme nightfly
 " nnoremap <C-o> :Rg<CR>
 
 
-let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-prettier', 'coc-html', 'coc-css', 'coc-emmet', 'coc-tabnine', 'coc-tailwindcss', 'coc-marketplace', 'coc-tsserver']
+let g:coc_global_extensions = ['coc-json', 'coc-prettier', 'coc-html', 'coc-css', 'coc-emmet', 'coc-tabnine', 'coc-tailwindcss', 'coc-marketplace', 'coc-tsserver']
 
 nnoremap <Leader>m :Buffers<CR>
 nnoremap <C-p> <cmd>lua require('telescope.builtin').find_files({previewer = false})<cr>
@@ -189,6 +194,8 @@ nnoremap ? <cmd>Telescope current_buffer_fuzzy_find<cr>
 nnoremap <leader>e <cmd>Telescope coc diagnostics<cr>
 nnoremap <leader>s <cmd>Telescope coc document_symbols<cr>
 nnoremap <leader>i <cmd>Telescope coc implementations<cr>
+
+nnoremap <leader>pp <cmd>Telescope projects<CR>
 
 nnoremap <leader>ld <cmd>Telescope git_bcommits><cr>
 nnoremap <leader>lc <cmd>Telescope git_commits	<cr>
@@ -248,6 +255,22 @@ require("indent_blankline").setup {
     show_end_of_line = true,
     space_char_blankline = " ",
 }
+EOF
+
+lua << EOF
+require('numb').setup{
+   show_numbers = true, -- Enable 'number' for the window while peeking
+   show_cursorline = true, -- Enable 'cursorline' for the window while peeking
+   number_only = false, -- Peek only when the command is only a number instead of when it starts with a number
+}
+EOF
+
+lua << EOF
+  require("project_nvim").setup {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+  }
 EOF
 
 lua << EOF
@@ -342,7 +365,7 @@ require('telescope').setup {
 }
 require('telescope').load_extension('fzf')
 require('telescope').load_extension('coc')
-
+require('telescope').load_extension('projects')
 EOF
 
 lua << EOF
@@ -408,6 +431,7 @@ nmap <leader>rv :Eview<Space>
 nmap <C-_> :CommentToggle<CR>
 vmap <C-_> :CommentToggle<CR>
 
+
 nnoremap <Tab>   za
 
 nnoremap <silent> <C-\> :vsplit<CR>
@@ -417,8 +441,8 @@ nnoremap <silent> ff :Format<CR>
 command! -nargs=0 BlameOff :call coc#config('git.addGBlameToVirtualText', v:false)
 command! -nargs=0 BlameOn :call coc#config('git.addGBlameToVirtualText', v:true)
 
-nnoremap <silent> bo :BlameOff<CR>
-nnoremap <silent> bi :BlameOn<CR>
+let g:gitblame_enabled = 0
+nnoremap <silent> bt :GitBlameToggle<CR>
 
 
 map <C-n> :NERDTreeToggle<CR>
