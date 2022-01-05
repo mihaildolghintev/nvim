@@ -24,7 +24,7 @@ Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'vimwiki/vimwiki'
 Plug 'farmergreg/vim-lastplace'
 
-"Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'ludovicchabant/vim-gutentags'
 
 Plug 'TimUntersberger/neogit'
 Plug 'vim-ruby/vim-ruby'
@@ -48,7 +48,7 @@ Plug 'honza/vim-snippets'
 Plug 'vim-test/vim-test'
 Plug 'akinsho/toggleterm.nvim'
 
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}} " Completion as in vscode
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'nvim-lua/plenary.nvim'
 
 Plug 'jiangmiao/auto-pairs'
@@ -185,7 +185,7 @@ let g:coc_global_extensions = ['coc-json', 'coc-prettier', 'coc-html', 'coc-css'
 
 nnoremap <Leader>m :Buffers<CR>
 nnoremap <C-p> <cmd>lua require('telescope.builtin').find_files({previewer = false})<cr>
-nnoremap <C-o> <cmd>Telescope live_grep<cr>
+nnoremap <Leader>o <cmd>Telescope live_grep<cr>
 nnoremap <leader>m <cmd>Telescope marks<cr>
 nnoremap <C-e> <cmd>Telescope buffers<cr>
 nnoremap <A-i> <cmd>Telescope jumplist<cr>
@@ -477,3 +477,4 @@ let g:vimrubocop_keymap = 0
 nmap <Leader>r :RuboCop<CR>
 
 
+autocmd FileType ruby,haml setlocal tags+=.git/rubytags | setlocal tags-=.git/tags
