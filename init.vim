@@ -11,7 +11,6 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'fannheyward/telescope-coc.nvim'
 Plug 'rbgrouleff/bclose.vim'
-Plug 'francoiscabrol/ranger.vim'
 
 Plug 'mhartington/formatter.nvim'
 Plug 'ahmedkhalf/project.nvim'
@@ -121,79 +120,38 @@ set number
 set enc=utf8  " utf-8 by default in files
 set ls=2  " show status bar always
 set hlsearch	" highlight search
+set ignorecase
 set showtabline=0
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 set expandtab
+set scrolloff=8
 
 
 "set relativenumber
 set splitright
-"highlight LineNr ctermfg=gray
-"highlight Pmenu ctermbg=gray guibg=gray " popup autocomplete menu color
 
 set t_Co=256
 set guifont=JetBrainsMono\ Nerd\ Font\ 11
-"highlight Normal guibg=black guifg=white
 
 set background=dark
 set termguicolors
 let g:vscode_style = "dark"
 
-"let g:molokai_original = 1
 
-
-let g:nord_borders = v:true
-let g:nord_contrast = v:true
-
-
-"colorscheme bluewery
-"colorscheme shades_of_purple
-"colorscheme gruvbox
-"colorscheme gruvbox-flat
-"colorscheme molokai
-"colorscheme one
-"colorscheme palenight
-"colorscheme dracula
-"colorscheme gruvbox-material
-" colorscheme paper
-" colorscheme github_dark
- "colorscheme github_light
-"colorscheme xcodelight
-"colorscheme xcodedark
 colorscheme nightfly
-"colorscheme uwu
-"colorscheme kikwis
-"colorscheme tokyonight
-"colorscheme monokai
-" colorscheme vscode
-"colorscheme nord
-"colorscheme kat.lightenwim
-"colorscheme noctu
-"colorscheme zenbones
-"colorscheme jellybeans
 
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
-" nnoremap <A-f> :Ag<CR>
-" nnoremap <C-p> :Files<CR>
-" nnoremap <C-u> :Tags<CR>
-" nnoremap <C-o> :Rg<CR>
+let g:coc_global_extensions = ['coc-json', 'coc-prettier', 'coc-html', 'coc-css', 'coc-emmet', 'coc-tabnine', 'coc-tailwindcss', 'coc-marketplace']
 
-
-let g:coc_global_extensions = ['coc-json', 'coc-prettier', 'coc-html', 'coc-css', 'coc-emmet', 'coc-tabnine', 'coc-tailwindcss', 'coc-marketplace', 'coc-tsserver']
-
-nnoremap <Leader>m :Buffers<CR>
-nnoremap <C-p> <cmd>lua require('telescope.builtin').find_files({previewer = false})<cr>
-nnoremap <Leader>o <cmd>Telescope live_grep<cr>
-nnoremap <leader>m <cmd>Telescope marks<cr>
-nnoremap <C-e> <cmd>Telescope buffers<cr>
-nnoremap <A-i> <cmd>Telescope jumplist<cr>
-nnoremap <leader>b <cmd>Telescope file_browser<cr>
+nnoremap <Leader>f <cmd>lua require('telescope.builtin').find_files({previewer = false})<cr>
+nnoremap <Leader>so <cmd>Telescope live_grep<cr>
+nnoremap <Leader>m <cmd>Telescope marks<cr>
+nnoremap <Leader>b <cmd>Telescope buffers<cr>
 nnoremap ? <cmd>Telescope current_buffer_fuzzy_find<cr>
 nnoremap <leader>e <cmd>Telescope coc diagnostics<cr>
-nnoremap <leader>s <cmd>Telescope coc document_symbols<cr>
-nnoremap <leader>i <cmd>Telescope coc implementations<cr>
 
 nnoremap <leader>pp <cmd>Telescope projects<CR>
 
@@ -201,8 +159,6 @@ nnoremap <leader>ld <cmd>Telescope git_bcommits><cr>
 nnoremap <leader>lc <cmd>Telescope git_commits	<cr>
 nnoremap <leader>lb <cmd>lua require('telescope.builtin').git_branches({previewer = false})<cr>
 nnoremap <leader>ls <cmd>Telescope git_status<cr>
-
-command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 
 nnoremap <A-j> <c-w>j
@@ -215,13 +171,11 @@ nnoremap <C-v> "+gp
 inoremap <C-v> <ESC>"+gp
 
 
-
 " Enable per-command history.
 " CTRL-N and CTRL-P will be automatically bound to next-history and
 " previous-history instead of down and up. If you don't like the change,
 " explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
 let g:fzf_history_dir = '~/.local/share/fzf-history'
-
 
 
 "
@@ -266,16 +220,12 @@ require('numb').setup{
 EOF
 
 lua << EOF
-  require("project_nvim").setup {
-    -- your configuration comes here
-    -- or leave it empty to use the default settings
-    -- refer to the configuration section below
-  }
+  require("project_nvim").setup {}
 EOF
 
 lua << EOF
 require("toggleterm").setup({
-  open_mapping = [[<A-Backspace>]],
+  open_mapping = [[<M-Backspace>]],
   hide_numbers = true, -- hide the number column in toggleterm buffers
   shade_filetypes = {},
   shade_terminals = true,
@@ -409,9 +359,6 @@ function! s:show_documentation()
 endfunction
 
 
-
-
-
 let g:snipMate = { 'snippet_version' : 1 }
 
 let test#strategy = "neovim"
@@ -423,11 +370,6 @@ nmap  <leader>tf :TestFile<CR>
 nmap  <leader>ts :TestSuite<CR>
 nmap  <leader>tl :TestLast<CR>
 
-nmap <leader>rm :Emodel<Space>
-nmap <leader>rc :Econtroller<Space>
-nmap <leader>rs :Eschema<CR>
-nmap <leader>rv :Eview<Space>
-
 nmap <C-_> :CommentToggle<CR>
 vmap <C-_> :CommentToggle<CR>
 
@@ -437,9 +379,6 @@ nnoremap <Tab>   za
 nnoremap <silent> <C-\> :vsplit<CR>
 
 nnoremap <silent> ff :Format<CR>
-
-command! -nargs=0 BlameOff :call coc#config('git.addGBlameToVirtualText', v:false)
-command! -nargs=0 BlameOn :call coc#config('git.addGBlameToVirtualText', v:true)
 
 let g:gitblame_enabled = 0
 nnoremap <silent> bt :GitBlameToggle<CR>
@@ -453,7 +392,7 @@ map <leader>g :Neogit<CR>
 nnoremap <Leader><Leader> <C-^>
 
 
-call wilder#setup({'modes': [':', '/', '?']})
+call wilder#setup({'modes': [':']})
 
 call wilder#set_option('renderer', wilder#popupmenu_renderer(wilder#popupmenu_border_theme({
       \ 'highlights': {
