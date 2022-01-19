@@ -1,7 +1,5 @@
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'hoob3rt/lualine.nvim'
 Plug 'ryanoasis/vim-devicons'
@@ -17,13 +15,16 @@ Plug 'ahmedkhalf/project.nvim'
 Plug 'nacro90/numb.nvim'
 Plug 'f-person/git-blame.nvim'
 
+Plug 'mg979/vim-visual-multi'
+
 Plug 'mattn/emmet-vim'
 Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }
 
 Plug 'vimwiki/vimwiki'
 Plug 'farmergreg/vim-lastplace'
 
-Plug 'ludovicchabant/vim-gutentags'
+Plug 'elihunter173/dirbuf.nvim'
+Plug 'ahmedkhalf/project.nvim'
 
 Plug 'TimUntersberger/neogit'
 Plug 'vim-ruby/vim-ruby'
@@ -85,7 +86,9 @@ Plug 'airblade/vim-gitgutter'
 "Plug 'projekt0n/github-nvim-theme'
 "Plug 'mangeshrex/uwu.vim'
 " Plug 'arzg/vim-colors-xcode'
- Plug 'bluz71/vim-nightfly-guicolors'
+Plug 'bluz71/vim-nightfly-guicolors'
+Plug 'andreasvc/vim-256noir'
+Plug 'andreypopp/vim-colors-plain'
 " Plug 'noahfrederick/vim-noctu'
 " Plug 'lucastrvsn/kikwis'
 "Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
@@ -136,7 +139,6 @@ set guifont=JetBrainsMono\ Nerd\ Font\ 11
 
 set background=dark
 set termguicolors
-let g:vscode_style = "dark"
 
 
 colorscheme nightfly
@@ -145,19 +147,18 @@ command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 let g:coc_global_extensions = ['coc-json', 'coc-prettier', 'coc-html', 'coc-css', 'coc-emmet', 'coc-tabnine', 'coc-tailwindcss', 'coc-marketplace']
 
-nnoremap <Leader>f <cmd>lua require('telescope.builtin').find_files({previewer = false})<cr>
-nnoremap <Leader>so <cmd>Telescope live_grep<cr>
+nnoremap <Leader>pf <cmd>lua require('telescope.builtin').find_files({previewer = false})<cr>
+nnoremap <Leader>po <cmd>Telescope live_grep<cr>
 nnoremap <Leader>m <cmd>Telescope marks<cr>
-nnoremap <Leader>b <cmd>Telescope buffers<cr>
+nnoremap <C-e> <cmd>Telescope buffers<cr>
 nnoremap ? <cmd>Telescope current_buffer_fuzzy_find<cr>
 nnoremap <leader>e <cmd>Telescope coc diagnostics<cr>
-
-nnoremap <leader>pp <cmd>Telescope projects<CR>
 
 nnoremap <leader>ld <cmd>Telescope git_bcommits><cr>
 nnoremap <leader>lc <cmd>Telescope git_commits	<cr>
 nnoremap <leader>lb <cmd>lua require('telescope.builtin').git_branches({previewer = false})<cr>
 nnoremap <leader>ls <cmd>Telescope git_status<cr>
+nnoremap <leader>pp <cmd>Telescope projects<cr>
 
 
 nnoremap <A-j> <c-w>j
@@ -169,6 +170,9 @@ vnoremap <C-c> "+y
 nnoremap <C-v> "+gp
 inoremap <C-v> <ESC>"+gp
 
+
+:command! CopyRelative let @+ = expand('%')
+nnoremap cp <cmd>CopyRelative<CR>
 
 " Enable per-command history.
 " CTRL-N and CTRL-P will be automatically bound to next-history and
@@ -197,9 +201,11 @@ set signcolumn=yes
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
 
+lua << EOF
+  require("project_nvim").setup {}
+EOF
 
 lua require'colorizer'.setup()
-
 lua << EOF
 vim.opt.list = true
 vim.opt.listchars:append("space:⋅")
@@ -381,10 +387,6 @@ nnoremap <silent> ff :Format<CR>
 
 let g:gitblame_enabled = 0
 nnoremap <silent> bt :GitBlameToggle<CR>
-
-
-map <C-n> :NERDTreeToggle<CR>
-let g:NERDTreeWinSize=50
 
 map <leader>g :Neogit<CR>
 
