@@ -1,5 +1,6 @@
 {
   "suggest.noselect": false,
+  "suggest.maxCompleteItemCount": 4,
   "suggest.floatConfig": {
     "border": true
   },
@@ -77,7 +78,7 @@
   "solargraph.formatting": true,
   "solargraph.hover": true,
   "solargraph.diagnostics": true,
-  "tabnine.priority": 99,
+  "tabnine.priority": 999,
   "tailwindCSS.experimental.classRegex": ["class:\\s*\"([^\"]*)\""],
   "[haml]": {
     "editor.snippetSuggestions": "bottom",

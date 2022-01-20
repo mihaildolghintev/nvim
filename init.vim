@@ -63,7 +63,7 @@ Plug 'alvan/vim-closetag'
 Plug 'ap/vim-css-color'
 
 "Plug 'yggdroot/indentline'
-Plug 'lukas-reineke/indent-blankline.nvim'
+"Plug 'lukas-reineke/indent-blankline.nvim'
 
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
@@ -82,8 +82,8 @@ Plug 'airblade/vim-gitgutter'
 "Plug 'tanvirtin/monokai.nvim'
 "Plug 'Rigellute/shades-of-purple.vim'
 "Plug 'patstockwell/vim-monokai-tasty'
-" Plug 'sainnhe/gruvbox-material'
-"Plug 'projekt0n/github-nvim-theme'
+Plug 'sainnhe/gruvbox-material'
+Plug 'projekt0n/github-nvim-theme'
 "Plug 'mangeshrex/uwu.vim'
 " Plug 'arzg/vim-colors-xcode'
 Plug 'bluz71/vim-nightfly-guicolors'
@@ -108,7 +108,7 @@ syntax on
 
 set encoding=utf8
 
-set list
+set nolist
 set synmaxcol=200
 set clipboard=unnamedplus
 let mapleader = " "
@@ -141,7 +141,8 @@ set background=dark
 set termguicolors
 
 
-colorscheme nightfly
+"colorscheme nightfly
+colorscheme gruvbox-material
 
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
@@ -172,7 +173,7 @@ inoremap <C-v> <ESC>"+gp
 
 
 :command! CopyRelative let @+ = expand('%')
-nnoremap cp <cmd>CopyRelative<CR>
+nnoremap cr <cmd>CopyRelative<CR>
 
 " Enable per-command history.
 " CTRL-N and CTRL-P will be automatically bound to next-history and
@@ -210,10 +211,6 @@ lua << EOF
 vim.opt.list = true
 vim.opt.listchars:append("space:⋅")
 
-require("indent_blankline").setup {
-    show_end_of_line = true,
-    space_char_blankline = " ",
-}
 EOF
 
 lua << EOF
@@ -327,7 +324,7 @@ lua << EOF
 local lualine = require 'lualine'
 lualine.setup {
   options = {
-    theme = 'nightfly',
+    theme = 'gruvbox-material',
   },
 }
 
