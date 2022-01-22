@@ -17,6 +17,8 @@ Plug 'f-person/git-blame.nvim'
 
 Plug 'mg979/vim-visual-multi'
 
+Plug 'fladson/vim-kitty'
+
 Plug 'mattn/emmet-vim'
 Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }
 
@@ -50,6 +52,8 @@ Plug 'akinsho/toggleterm.nvim'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'nvim-lua/plenary.nvim'
+
+Plug 'ThePrimeagen/harpoon'
 
 Plug 'jiangmiao/auto-pairs'
 
@@ -161,6 +165,16 @@ nnoremap <leader>lb <cmd>lua require('telescope.builtin').git_branches({previewe
 nnoremap <leader>ls <cmd>Telescope git_status<cr>
 nnoremap <leader>pp <cmd>Telescope projects<cr>
 
+nnoremap <leader>hm <cmd>lua require('harpoon.mark').add_file()<cr>
+nnoremap <leader>ht <cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>
+nnoremap <leader>h1 <cmd>lua require('harpoon.term').gotoTerminal(1)<cr>
+nnoremap <leader>h2 <cmd>lua require('harpoon.term').gotoTerminal(2)<cr>
+
+nnoremap <leader>nn <cmd>noh<cr>
+
+nnoremap <leader>db <cmd>Dirbuf<cr>
+
+nnoremap <leader>bc <cmd>bd<cr>
 
 nnoremap <A-j> <c-w>j
 nnoremap <A-k> <c-w>k
