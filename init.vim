@@ -1,10 +1,6 @@
 call plug#begin('~/.config/nvim/plugged')
-
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'hoob3rt/lualine.nvim'
 Plug 'ryanoasis/vim-devicons'
-Plug 'junegunn/fzf', {'do': './install --bin' }
-Plug 'junegunn/fzf.vim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'fannheyward/telescope-coc.nvim'
@@ -24,22 +20,20 @@ Plug 'fladson/vim-kitty'
 Plug 'mattn/emmet-vim'
 Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }
 
-Plug 'vimwiki/vimwiki'
+Plug 'nvim-orgmode/orgmode'
+Plug 'dhruvasagar/vim-table-mode'
 Plug 'farmergreg/vim-lastplace'
 
 Plug 'elihunter173/dirbuf.nvim'
-Plug 'ahmedkhalf/project.nvim'
 
 Plug 'TimUntersberger/neogit'
 Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-endwise'
-"Plug 'tpope/vim-rails'
 "Plug 'tpope/vim-haml'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-ragtag'
-Plug 'dewyze/vim-ruby-block-helpers'
 "Plug 'ngmy/vim-rubocop'
 Plug 'thoughtbot/vim-rspec'
 Plug 'pechorin/any-jump.vim'
@@ -68,9 +62,6 @@ Plug 'othree/html5.vim'
 Plug 'alvan/vim-closetag'
 Plug 'ap/vim-css-color'
 
-"Plug 'yggdroot/indentline'
-"Plug 'lukas-reineke/indent-blankline.nvim'
-
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
@@ -89,15 +80,15 @@ Plug 'airblade/vim-gitgutter'
 "Plug 'Rigellute/shades-of-purple.vim'
 "Plug 'patstockwell/vim-monokai-tasty'
 Plug 'sainnhe/gruvbox-material'
-Plug 'projekt0n/github-nvim-theme'
+"Plug 'projekt0n/github-nvim-theme'
 "Plug 'mangeshrex/uwu.vim'
 " Plug 'arzg/vim-colors-xcode'
 Plug 'bluz71/vim-nightfly-guicolors'
-Plug 'andreasvc/vim-256noir'
-Plug 'andreypopp/vim-colors-plain'
+"Plug 'andreasvc/vim-256noir'
+"Plug 'andreypopp/vim-colors-plain'
 " Plug 'noahfrederick/vim-noctu'
 " Plug 'lucastrvsn/kikwis'
-Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+"Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 "Plug 'Mofiqul/vscode.nvim'
 "Plug 'shaunsingh/nord.nvim'
 "Plug 'katawful/kat.nvim'
@@ -147,7 +138,6 @@ set background=dark
 set termguicolors
 
 
-"colorscheme nightfly
 colorscheme nightfly
 
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
@@ -217,6 +207,33 @@ set signcolumn=yes
 
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
+
+lua << EOF
+local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+parser_config.org = {
+  install_info = {
+    url = 'https://github.com/milisims/tree-sitter-org',
+    revision = 'f110024d539e676f25b72b7c80b0fd43c34264ef',
+    files = {'src/parser.c', 'src/scanner.cc'},
+  },
+  filetype = 'org',
+}
+
+require'nvim-treesitter.configs'.setup {
+  -- If TS highlights are not enabled at all, or disabled via `disable` prop, highlighting will fallback to default Vim syntax highlighting
+  highlight = {
+    enable = true,
+    disable = {'org'}, -- Remove this to use TS highlighter for some of the highlights (Experimental)
+    additional_vim_regex_highlighting = {'org'}, -- Required since TS highlighter doesn't support all syntax features (conceal)
+  },
+  ensure_installed = {'org'}, -- Or run :TSUpdate org
+}
+
+require('orgmode').setup({
+  org_agenda_files = {'~/Dropbox/org/*', '~/my-orgs/**/*'},
+  org_default_notes_file = '~/Dropbox/org/refile.org',
+})
+EOF
 
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
