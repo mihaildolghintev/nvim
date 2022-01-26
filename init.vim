@@ -34,7 +34,6 @@ Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-ragtag'
-"Plug 'ngmy/vim-rubocop'
 Plug 'thoughtbot/vim-rspec'
 Plug 'pechorin/any-jump.vim'
 Plug 'andymass/vim-matchup'
@@ -168,10 +167,10 @@ nnoremap <leader>db <cmd>Dirbuf<cr>
 
 nnoremap <leader>bc <cmd>bd<cr>
 
-nnoremap <A-j> <c-w>j
-nnoremap <A-k> <c-w>k
-nnoremap <A-h> <c-w>h
-nnoremap <A-l> <c-w>l
+nnoremap <leader>wj <c-w>j
+nnoremap <leader>wk <c-w>k
+nnoremap <leader>wh <c-w>h
+nnoremap <leader>wl <c-w>l
 nnoremap <C-c> "+y
 vnoremap <C-c> "+y
 nnoremap <C-v> "+gp
@@ -460,9 +459,3 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-
-let g:vimrubocop_keymap = 0
-nmap <Leader>r :RuboCop<CR>
-
-
-autocmd FileType ruby,haml setlocal tags+=.git/rubytags | setlocal tags-=.git/tags
