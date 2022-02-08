@@ -13,7 +13,7 @@ Plug 'f-person/git-blame.nvim'
 
 Plug 'mg979/vim-visual-multi'
 
-Plug 'fladson/vim-kitty'
+Plug 'kovisoft/slimv'
 
 Plug 'mattn/emmet-vim'
 Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -214,6 +214,10 @@ set signcolumn=yes
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 50b5fbb18e35e9f3be8865c7f0f907fdb9889159
 lua << EOF
   require("project_nvim").setup {}
 EOF
