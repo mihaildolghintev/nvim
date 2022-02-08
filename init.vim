@@ -6,8 +6,6 @@ Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'fannheyward/telescope-coc.nvim'
 Plug 'rbgrouleff/bclose.vim'
 
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-
 Plug 'mhartington/formatter.nvim'
 Plug 'ahmedkhalf/project.nvim'
 Plug 'nacro90/numb.nvim'
@@ -20,8 +18,6 @@ Plug 'fladson/vim-kitty'
 Plug 'mattn/emmet-vim'
 Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }
 
-Plug 'nvim-orgmode/orgmode'
-Plug 'dhruvasagar/vim-table-mode'
 Plug 'farmergreg/vim-lastplace'
 
 Plug 'elihunter173/dirbuf.nvim'
@@ -41,11 +37,22 @@ Plug 'tpope/vim-rbenv'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
 Plug 'SirVer/ultisnips'
+Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'vim-test/vim-test'
 Plug 'akinsho/toggleterm.nvim'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+Plug 'neovim/nvim-lspconfig'
+Plug 'williamboman/nvim-lsp-installer'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
+
 Plug 'nvim-lua/plenary.nvim'
 
 Plug 'ThePrimeagen/harpoon'
@@ -206,51 +213,6 @@ set signcolumn=yes
 
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
-
-lua << EOF
-local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
-parser_config.org = {
-  install_info = {
-    url = 'https://github.com/milisims/tree-sitter-org',
-    revision = 'f110024d539e676f25b72b7c80b0fd43c34264ef',
-    files = {'src/parser.c', 'src/scanner.cc'},
-  },
-  filetype = 'org',
-}
-
-require'nvim-treesitter.configs'.setup {
-  -- If TS highlights are not enabled at all, or disabled via `disable` prop, highlighting will fallback to default Vim syntax highlighting
-  highlight = {
-    enable = true,
-    disable = {'org'}, -- Remove this to use TS highlighter for some of the highlights (Experimental)
-    additional_vim_regex_highlighting = {'org'}, -- Required since TS highlighter doesn't support all syntax features (conceal)
-  },
-  ensure_installed = {'org'}, -- Or run :TSUpdate org
-}
-
-require('orgmode').setup({
-  org_agenda_files = {'~/Dropbox/org/*', '~/my-orgs/**/*'},
-  org_default_notes_file = '~/Dropbox/org/refile.org',
-})
-EOF
-
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  -- One of "all", "maintained" (parsers with maintainers), or a list of languages
-  ensure_installed = "maintained",
--- Install languages synchronously (only applied to `ensure_installed`)
-  sync_install = true,
-  highlight = {
-    enable = true,
-
-    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-    -- Using this option may slow down your editor, and you may see some duplicate highlights.
-    -- Instead of true it can also be a list of languages
-    additional_vim_regex_highlighting = false,
-  },
-}
-EOF
 
 lua << EOF
   require("project_nvim").setup {}
