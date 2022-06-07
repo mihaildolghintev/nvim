@@ -163,11 +163,6 @@ nnoremap <leader>lb <cmd>lua require('telescope.builtin').git_branches({previewe
 nnoremap <leader>ls <cmd>Telescope git_status<cr>
 nnoremap <leader>pp <cmd>Telescope projects<cr>
 
-nnoremap <leader>hm <cmd>lua require('harpoon.mark').add_file()<cr>
-nnoremap <leader>ht <cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>
-nnoremap <leader>h1 <cmd>lua require('harpoon.term').gotoTerminal(1)<cr>
-nnoremap <leader>h2 <cmd>lua require('harpoon.term').gotoTerminal(2)<cr>
-
 nnoremap <leader>nn <cmd>noh<cr>
 
 nnoremap <leader>db <cmd>Dirbuf<cr>
@@ -214,10 +209,6 @@ set signcolumn=yes
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 50b5fbb18e35e9f3be8865c7f0f907fdb9889159
 lua << EOF
   require("project_nvim").setup {}
 EOF

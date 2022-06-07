@@ -74,12 +74,7 @@
   "diagnostic-languageserver.filetypes": {
     "ruby": "rubocop"
   },
-  "solargraph.autoformat": true,
-  "solargraph.formatting": true,
-  "solargraph.hover": true,
-  "solargraph.diagnostics": true,
   "tabnine.priority": 999,
-  "tailwindCSS.experimental.classRegex": ["class:\\s*\"([^\"]*)\""],
   "[haml]": {
     "editor.snippetSuggestions": "bottom",
     "tailwindCSS.experimental.classRegex": [
